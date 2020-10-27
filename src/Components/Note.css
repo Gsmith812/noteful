@@ -1,0 +1,11 @@
+.Note {
+    border: 1px solid #000000;
+    margin: 20px;
+    padding: 0px 20px;
+    width: 50%;
+}
+
+.Note p {
+    display: flex;
+    justify-content: space-between;
+}
