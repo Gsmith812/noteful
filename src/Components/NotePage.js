@@ -1,5 +1,6 @@
 import React from 'react';
 import './NotePage.css';
+import moment from 'moment';
 
 function NotePage(props) {
     const matchedNote = props.notes.find(note => note.id === props.noteId);
@@ -8,7 +9,7 @@ function NotePage(props) {
         <div>
             <div className="Note">
                 <h2>{name}</h2>
-                <p>{modified}<button>Delete Note</button></p>
+                <p>Date modified: {moment(modified).format('Do MMM YYYY')}<button>Delete Note</button></p>
             </div>
             <div className='note-content'>
                 <p>{content}</p>
