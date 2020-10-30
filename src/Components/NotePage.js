@@ -1,21 +1,35 @@
 import React from 'react';
 import './NotePage.css';
-import moment from 'moment';
+import Note from './Note';
+import NotefulContext from '../NotefulContext';
 
-function NotePage(props) {
-    const matchedNote = props.notes.find(note => note.id === props.noteId);
-    const { name, modified, content} = matchedNote;
-    return (
-        <div>
-            <div className="Note">
-                <h2>{name}</h2>
-                <p>Date modified: {moment(modified).format('Do MMM YYYY')}<button>Delete Note</button></p>
+class NotePage extends React.Component {
+    static defaultProps = {
+        match: {
+            params: {}
+        }
+    }
+
+    static contextType = NotefulContext;
+
+    handleDeleteNote = noteId => {
+        this.props.history.push('/')
+    }
+    
+    render() {
+        const { noteid } = this.props.match.params
+        const { notes } = this.context
+        const matchedNote = notes.find(note => note.id === noteid);
+        const { content } = matchedNote;
+        return (
+            <div>
+                <Note noteInfo={matchedNote} onDeleteNote={this.handleDeleteNote}/>
+                <div className='note-content'>
+                    <p>{content}</p>
+                </div>
             </div>
-            <div className='note-content'>
-                <p>{content}</p>
-            </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default NotePage;

@@ -1,29 +1,59 @@
 import React, { Component } from 'react';
-import STORE from './dummy-store';
+import './dummy-store';
 import './App.css';
 import { Link } from 'react-router-dom';
 import Main from './Components/Main';
 import Nav from './Components/Nav';
-
-
-const { folders, notes } = STORE; 
+import NotefulContext from './NotefulContext'; 
 
 class App extends Component {
   state = {
-    folders,
-    notes,
-    selectedFolder: null
+    folders : [],
+    notes : [],
+    error: null,
+  };
+
+  componentDidMount() {
+    fetch('http://localhost:9090/folders')
+      .then(res => res.ok ? res.json() : Promise.reject({error: res.status}))
+      .then(folders => {
+        this.setState({
+          folders: folders
+        })
+      })
+      .catch(err => this.setState({error: err.message}));
+    fetch('http://localhost:9090/notes')
+      .then(res => res.ok ? res.json() : Promise.reject({error: res.status}))
+      .then(notes => {
+        this.setState({
+          notes: notes
+        })
+      })
+      .catch(err => this.setState({error: err.message}));
+  }
+
+  handleDeleteNote = noteId => {
+    this.setState({
+      notes: this.state.notes.filter(note => note.id !== noteId)
+    });
   };
 
   render() {
+    const contextValue = {
+      folders: this.state.folders,
+      notes: this.state.notes,
+      deleteNote: this.handleDeleteNote,
+    }
     return (
       <div className='App'>
         <header>
           <Link to='/'><h1>Noteful</h1></Link>
         </header>
         <main>
-          <Nav folders={this.state.folders} notes={this.state.notes} />
-          <Main notes={this.state.notes} />
+          <NotefulContext.Provider value={contextValue}>
+            <Nav />
+            <Main />
+          </NotefulContext.Provider>
         </main>        
       </div>
     );
