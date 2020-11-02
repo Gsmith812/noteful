@@ -3,10 +3,12 @@ import './Note.css';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import NotefulContext from '../NotefulContext';
+import PropTypes from 'prop-types';
 
 class Note extends React.Component {
     static defaultProps = {
         onDeleteNote: () => {},
+        noteInfo: [],
     }
 
     static contextType = NotefulContext;
@@ -15,15 +17,15 @@ class Note extends React.Component {
         e.preventDefault();
         const noteId = this.props.noteInfo.id;
         fetch(`http://localhost:9090/notes/${noteId}`, {
-            method: 'DELETE',
-            headers: {
-                'content-type': 'application/json'
-            },
-        })
-            .then(res => res.ok ? res.json() : Promise.reject({error: res.status}))
-            .then(() => {
-                this.context.deleteNote(noteId)
-                this.props.onDeleteNote(noteId)
+             method: 'DELETE',
+             headers: {
+                 'content-type': 'application/json'
+             },
+         })
+             .then(res => res.ok ? res.json() : Promise.reject({error: res.status}))
+             .then(() => {
+                    this.context.deleteNote(noteId)
+                    this.props.onDeleteNote(noteId)
             })
             .catch(err => err.message);
     }
@@ -38,5 +40,16 @@ class Note extends React.Component {
         );
     }
 }
+
+Note.propTypes = {
+    noteInfo: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        modified: PropTypes.string.isRequired,
+        folderId: PropTypes.string,
+        content: PropTypes.string,        
+    }),
+    onDeleteNote: PropTypes.func.isRequired
+};
 
 export default Note;

@@ -7,7 +7,8 @@ class NotePage extends React.Component {
     static defaultProps = {
         match: {
             params: {}
-        }
+        },
+        history: {}
     }
 
     static contextType = NotefulContext;
@@ -19,15 +20,15 @@ class NotePage extends React.Component {
     render() {
         const { noteid } = this.props.match.params
         const { notes } = this.context
-        const matchedNote = notes.find(note => note.id === noteid);
-        const { content } = matchedNote;
+        const matchedNote = notes.find(note => (note.id === noteid) ? note : '');
+        const { content } = matchedNote ? matchedNote : '';
         return (
-            <div>
-                <Note noteInfo={matchedNote} onDeleteNote={this.handleDeleteNote}/>
+            <>
+                <Note noteInfo={matchedNote && matchedNote} onDeleteNote={this.handleDeleteNote}/>
                 <div className='note-content'>
-                    <p>{content}</p>
+                    <p>{content && content}</p>
                 </div>
-            </div>
+            </>
         );
     }
 }

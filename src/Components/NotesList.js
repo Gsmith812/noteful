@@ -1,6 +1,8 @@
 import React from 'react';
 import NotefulContext from '../NotefulContext';
 import Note from './Note';
+import './NotesList.css';
+import { Link } from 'react-router-dom';
 
 class NotesList extends React.Component {
     static defaultProps = {
@@ -24,11 +26,14 @@ class NotesList extends React.Component {
             ? notes 
             : notes.filter(note => note.folderId === folderid)
         const notesList = filteredNotes.map(note =>
-            <Note key={note.id} noteInfo={note} folderId={note.folderId} onDeleteNote={this.handleDeleteNote} />
+            <Note key={note.id} noteInfo={note} onDeleteNote={this.handleDeleteNote} />
         );
         return (
             <>
                 {notesList}
+                <Link to='/add-new-note'>
+                    <button className='add-note'>Add Note</button>
+                </Link>
             </>
             
         )

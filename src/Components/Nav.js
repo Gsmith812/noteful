@@ -1,8 +1,9 @@
 import React from 'react';
 import './Nav.css';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route, Link } from 'react-router-dom';
 import NotesNav from './NotesNav';
 import NotefulContext from '../NotefulContext';
+import NotefulError from './NotefulError';
 
 class Nav extends React.Component {
     static contextType = NotefulContext;
@@ -17,21 +18,35 @@ class Nav extends React.Component {
         return (
             <section className='Nav'>
                 <div className='nav-container'>
-                    <Route 
-                        exact path='/'>
-                        {folderButtons}
-                        <button className='add-folder'>Add Folder</button>
-                    </Route>
-                    <Route 
-                        path='/notes/:noteid' 
-                        component={NotesNav}
-                    />
-                    <Route
-                        path='/folder/:folderid'
-                    >
-                        {folderButtons}
-                        <button className='add-folder'>Add Folder</button>
-                    </Route>
+                    <NotefulError>
+                        <Route 
+                            exact path='/'>
+                            {folderButtons}
+                            <NavLink to={`/add-new-folder`}>
+                                <button className='add-folder'>Add Folder</button>
+                            </NavLink>
+                        </Route>
+                        <Route 
+                            path='/notes/:noteid' 
+                            component={NotesNav}
+                        />
+                        <Route
+                            path='/folder/:folderid'
+                        >
+                            {folderButtons}
+                            <Link to={`/add-new-folder`}>
+                                <button className='add-folder'>Add Folder</button>
+                            </Link>
+                        </Route>
+                        <Route 
+                            path='/add-new-folder'
+                            component={NotesNav} 
+                        />
+                        <Route 
+                            path='/add-new-note'
+                            component={NotesNav}
+                        />
+                    </NotefulError>
                 </div>
             </section>
         );
