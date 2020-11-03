@@ -41,9 +41,9 @@ class AddNote extends React.Component {
             })
                 .then(res => res.ok ? res.json() : Promise.reject({err: res.status}))
                 .then(data => {
-                    this.props.history.push('/')
                     this.context.addNote(data)
                     this.setState({error: null})
+                    this.props.history.push('/')
                 })
                 .catch(err => this.setState({error: err.message}))
         }

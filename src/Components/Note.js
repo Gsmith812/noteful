@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 class Note extends React.Component {
     static defaultProps = {
         onDeleteNote: () => {},
-        noteInfo: [],
+        noteInfo: {},
     }
 
     static contextType = NotefulContext;
@@ -43,9 +43,9 @@ class Note extends React.Component {
 
 Note.propTypes = {
     noteInfo: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        modified: PropTypes.string.isRequired,
+        id: PropTypes.string,
+        name: PropTypes.string,
+        modified: PropTypes.string,
         folderId: PropTypes.string,
         content: PropTypes.string,        
     }),
