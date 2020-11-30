@@ -12,7 +12,7 @@ class Nav extends React.Component {
         const { folders } = this.context;
         const folderButtons = folders.map(folder =>
             <NavLink to={`/folder/${folder.id}`} key={folder.id}>
-                <button id={folder.id}>{folder.name}</button>
+                <button id={folder.id}>{folder.folder_name}</button>
             </NavLink>
         );
         return (

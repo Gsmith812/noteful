@@ -14,7 +14,6 @@ class AddNote extends React.Component {
         e.preventDefault();
         const { noteName, noteContent, noteFolder } = e.target;
         const currentDate = Date();
-        const newNoteId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20);
         this.setState({
             error: null
         })
@@ -26,13 +25,12 @@ class AddNote extends React.Component {
         }
         else {
             const newNote = {
-                id: newNoteId,
-                name: noteName.value,
-                modified: currentDate,                
-                folderId: noteFolder.value,
+                note_name: noteName.value,
+                date_modified: currentDate,                
+                folder_id: noteFolder.value,
                 content: noteContent.value,
             }
-            fetch('http://localhost:9090/notes', {
+            fetch('http://localhost:8000/api/notes', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -53,7 +51,7 @@ class AddNote extends React.Component {
     render() {
         const { folders } = this.context;
         const folderOptions = folders.map(folder => {
-            return <option key={folder.id} value={folder.id}>{folder.name}</option>
+            return <option key={folder.id} value={folder.id}>{folder.folder_name}</option>
         });
         return (
             <section className='AddNote'>

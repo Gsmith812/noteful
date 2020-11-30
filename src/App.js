@@ -14,7 +14,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost:9090/folders')
+    fetch('http://localhost:8000/api/folders')
       .then(res => res.ok ? res.json() : Promise.reject({error: res.status}))
       .then(folders => {
         this.setState({
@@ -22,7 +22,7 @@ class App extends Component {
         })
       })
       .catch(err => this.setState({error: err.message}));
-    fetch('http://localhost:9090/notes')
+    fetch('http://localhost:8000/api/notes')
       .then(res => res.ok ? res.json() : Promise.reject({error: res.status}))
       .then(notes => {
         this.setState({
@@ -33,9 +33,11 @@ class App extends Component {
   }
 
   handleDeleteNote = noteId => {
+    console.log(noteId)
     this.setState({
       notes: this.state.notes.filter(note => note.id !== noteId)
     });
+    console.log(this.state.notes)
   };
 
   handleAddFolder = folder => {

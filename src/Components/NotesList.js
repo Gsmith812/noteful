@@ -24,7 +24,7 @@ class NotesList extends React.Component {
         const filteredNotes = 
             (!folderid) 
             ? notes 
-            : notes.filter(note => note.folderId === folderid)
+            : notes.filter(note => note.folder_id === parseInt(folderid))
         const notesList = filteredNotes.map(note =>
             <Note key={note.id} noteInfo={note} onDeleteNote={this.handleDeleteNote} />
         );

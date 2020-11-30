@@ -20,11 +20,12 @@ class NotePage extends React.Component {
     render() {
         const { noteid } = this.props.match.params
         const { notes } = this.context
-        const matchedNote = notes.find(note => (note.id === noteid) ? note : '');
+        const matchedNote = notes.find(note => note.id === parseInt(noteid));
+            
         const { content } = matchedNote ? matchedNote : '';
         return (
             <>
-                <Note noteInfo={matchedNote && matchedNote} onDeleteNote={this.handleDeleteNote}/>
+                <Note noteInfo={matchedNote && matchedNote} onDeleteNote={() => this.handleDeleteNote}/>
                 <div className='note-content'>
                     <p>{content && content}</p>
                 </div>

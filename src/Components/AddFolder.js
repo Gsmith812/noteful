@@ -13,8 +13,8 @@ class AddFolder extends React.Component {
         e.preventDefault();
         const newFolderName = e.target.folderName.value;
         const newFolderId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20);
-        const newFolder = {id: newFolderId, name: newFolderName};
-        fetch('http://localhost:9090/folders', {
+        const newFolder = {folder_id: newFolderId, folder_name: newFolderName};
+        fetch('http://localhost:8000/api/folders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
