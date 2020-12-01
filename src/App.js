@@ -14,7 +14,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost:8000/api/folders')
+    fetch('https://warm-waters-00071.herokuapp.com/api/folders')
       .then(res => res.ok ? res.json() : Promise.reject({error: res.status}))
       .then(folders => {
         this.setState({
@@ -22,7 +22,7 @@ class App extends Component {
         })
       })
       .catch(err => this.setState({error: err.message}));
-    fetch('http://localhost:8000/api/notes')
+    fetch('https://warm-waters-00071.herokuapp.com/api/notes')
       .then(res => res.ok ? res.json() : Promise.reject({error: res.status}))
       .then(notes => {
         this.setState({

@@ -14,7 +14,7 @@ class AddFolder extends React.Component {
         const newFolderName = e.target.folderName.value;
         const newFolderId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20);
         const newFolder = {folder_id: newFolderId, folder_name: newFolderName};
-        fetch('http://localhost:8000/api/folders', {
+        fetch('https://warm-waters-00071.herokuapp.com/api/folders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -30,7 +30,7 @@ class AddNote extends React.Component {
                 folder_id: noteFolder.value,
                 content: noteContent.value,
             }
-            fetch('http://localhost:8000/api/notes', {
+            fetch('https://warm-waters-00071.herokuapp.com/api/notes', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

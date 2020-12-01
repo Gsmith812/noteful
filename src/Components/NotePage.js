@@ -25,7 +25,7 @@ class NotePage extends React.Component {
         const { content } = matchedNote ? matchedNote : '';
         return (
             <>
-                <Note noteInfo={matchedNote && matchedNote} onDeleteNote={() => this.handleDeleteNote}/>
+                <Note noteInfo={matchedNote && matchedNote} onDeleteNote={this.handleDeleteNote}/>
                 <div className='note-content'>
                     <p>{content && content}</p>
                 </div>
